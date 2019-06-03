@@ -36,7 +36,7 @@ classifier.add(Conv2D(32, (3, 3), input_shape=(64, 64, 3), activation = 'relu'))
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Add a second Convolutional Layer to improve accuracy
-classifier.add(Conv2D(32, 3, 3, activation = 'relu'))   
+classifier.add(Conv2D(32, (3, 3), activation = 'relu'))   
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Step 3 - Flattening to prepare the input layer of a futur ANN (as a vector)

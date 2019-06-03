@@ -30,7 +30,7 @@ from keras.layers import Dense             # To add the fully connected layers i
 classifier = Sequential()
 
 # Step 1 - Convolutional layer
-classifier.add(Conv2D(32, 3, 3, input_shape=(64, 64, 3), activation = 'relu'))   # 32 feature detectors of 3x3 (rowxcol) | images: colored, 64x64
+classifier.add(Conv2D(32, (3, 3), input_shape=(64, 64, 3), activation = 'relu'))   # 32 feature detectors of 3x3 (rowxcol) | images: colored, 64x64
 
 # Step 2 - Pooling to reduce the size of the feature map
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
@@ -77,4 +77,5 @@ classifier.fit_generator(training_set,
                          samples_per_epoch=8000,
                          epochs=25,
                          validation_data=test_set,
-                         validation_steps=2000)
+                         validation_steps=100
+                         )

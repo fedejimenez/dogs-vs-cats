@@ -20,7 +20,7 @@ Created on Sun Jun  2 17:33:05 2019
 
 # Import the Keras libraries and packages
 from keras.models import Sequential        # To initialize an NN as a sequence of layers
-from keras.layers import Convolution2D     # To use convolution layers (2D images)
+from keras.layers import Conv2D     # To use convolution layers (2D images)
 from keras.layers import MaxPooling2D      # To use pooling layer
 from keras.layers import Flatten           # To convert the the pool feature maps into an input vector
 from keras.layers import Dense             # To add the fully connected layers into a classic ANN
@@ -30,9 +30,13 @@ from keras.layers import Dense             # To add the fully connected layers i
 classifier = Sequential()
 
 # Step 1 - Convolutional layer
-classifier.add(Convolution2D(32, 3, 3, input_shape=(64, 64, 3), activation = 'relu'))   # 32 feature detectors of 3x3 (rowxcol) | images: colored, 64x64
+classifier.add(Conv2D(32, 3, 3, input_shape=(64, 64, 3), activation = 'relu'))   # 32 feature detectors of 3x3 (rowxcol) | images: colored, 64x64
 
 # Step 2 - Pooling to reduce the size of the feature map
+classifier.add(MaxPooling2D(pool_size = (2, 2)))
+
+# Add a second Convolutional Layer to improve accuracy
+classifier.add(Conv2D(32, 3, 3, activation = 'relu'))   
 classifier.add(MaxPooling2D(pool_size = (2, 2)))
 
 # Step 3 - Flattening to prepare the input layer of a futur ANN (as a vector)

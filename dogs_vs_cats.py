@@ -43,9 +43,8 @@ classifier.add(MaxPooling2D(pool_size = (2, 2)))
 classifier.add(Flatten())   
 
 # Step 4 - Full Connection (classic ANN)
-classifier.add(Dense(output_dim = 128, activation = 'relu'))            # 128 hidden nodes
-classifier.add(Dense(output_dim = 1, activation = 'sigmoid'))           # sigmoid for binary output: cat or dog
-
+classifier.add(Dense(activation = 'relu', units=128))            # 128 hidden nodes
+classifier.add(Dense(activation = 'sigmoid', units=1))           # sigmoid for binary output: cat or dog
 # Compiling the CNN
 classifier.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 

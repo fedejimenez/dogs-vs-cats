@@ -25,7 +25,6 @@ from keras.layers import MaxPooling2D      # To use pooling layer
 from keras.layers import Flatten           # To convert the the pool feature maps into an input vector
 from keras.layers import Dense             # To add the fully connected layers into a classic ANN
  
- 
 # Initialize the CNN
 classifier = Sequential()
 
@@ -78,3 +77,74 @@ classifier.fit_generator(training_set,
                          validation_data=test_set,
                          validation_steps=100
                          )
+
+#################################################################
+# PART 3 - Predict
+# Step 1 - Save the model to disk
+import pickle
+
+filename = 'finalized_model.sav'
+pickle.dump(classifier, open(filename, 'wb'))
+
+# Serialize
+with open('finalized_model.pkl', 'wb') as handle:
+    pickle.dump(classifier, handle, pickle.HIGHEST_PROTOCOL)
+    
+# De-serialize
+with open('finalized_model.pkl', 'rb') as handle:
+    model = pickle.load(handle)    
+
+# no we can call various methods over mlp_nn as as:    
+from PIL import Image
+import numpy as np
+from skimage import transform
+
+def load(filename):
+   np_image = Image.open(filename)
+   np_image = np.array(np_image).astype('float32')/255
+   np_image = transform.resize(np_image, (64, 64, 3))
+   np_image = np.expand_dims(np_image, axis=0)
+   return np_image    
+
+# Define classes
+classes = training_set.class_indices  
+print(classes)
+
+# predict result
+image = load('dataset/test_set/dogs/dog.4747.jpg')
+type(image)
+
+# Image from URL
+from skimage import io
+
+URL = ''
+
+img = io.imread(URL)
+io.imshow(img)
+io.show()
+
+image = np.array(img).astype('float32')/255
+image = transform.resize(image, (64, 64, 3))
+image = np.expand_dims(image, axis=0)
+
+# Start prediction
+result = model.predict_classes(image)
+
+if result[0][0] == 1:
+    prediction = 'dog'
+    accuracy = model.predict(image)[0][0]
+else:
+    prediction = 'cat'
+    accuracy = 1 - model.predict(image)[0][0]
+
+
+print('Result = ', prediction) 
+print('Accuracy = ' + str(round(accuracy, 3)) + '%')
+
+#########################################################
+
+# Save model as h5
+classifier.save('finalized_model.h5')
+
+# Print weights
+print(classifier.summary())

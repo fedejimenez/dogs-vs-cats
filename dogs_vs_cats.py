@@ -139,7 +139,7 @@ else:
 
 
 print('Result = ', prediction) 
-print('Accuracy = ' + str(round(accuracy, 3)*100) + '%')
+print('Accuracy = ' + str(round(accuracy*100, 2)) + '%')
 
 #########################################################
 

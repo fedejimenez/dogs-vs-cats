@@ -117,7 +117,7 @@ type(image)
 # Image from URL
 from skimage import io
 
-URL = ''
+URL = 'https://www.dogster.com/wp-content/uploads/2018/09/Carolina-Dog.jpg'
 
 img = io.imread(URL)
 io.imshow(img)
@@ -139,7 +139,7 @@ else:
 
 
 print('Result = ', prediction) 
-print('Accuracy = ' + str(round(accuracy, 3)) + '%')
+print('Accuracy = ' + str(round(accuracy, 3)*100) + '%')
 
 #########################################################
 
